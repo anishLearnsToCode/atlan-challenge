@@ -1,7 +1,26 @@
-# atlan-challenge
-My solution for Atlan Backend Engineering Internship Task
+# Real Time Task Management API
 
-To build the API, run ```docker-compose up --build```  inside atlan-challenge directory.
+This repository contains teh solution for the Atlan Internshop challenge. This project provides the user with a mechanism for creating tasks and pausing, resuming and stopping them as well.
+
+## 📖 Overview
+1. [Inroduction](#introduction)
+1. [Running It On Your Machine]()
+1. [The API]()
+
+
+## Running It On Your Machine
+Clone this on your machine
+```bash
+git clone --edit this madan--
+cd atlan-challenge (you can change name of repo if you want madan, then change this as well)
+```
+
+Build the Docker Image and run the server
+```bash
+docker-compose up --build
+```
+
+You can now open the web app on your machine on port 3000 at [http://localhost:3000](http://localhost:3000). On the wenb page you can start a modification request which will change the dates for all actors in the databases and this transaction will begin in excatly 1 second (--see this madan--), which allows you (the user) to test the pause/resume functionality.
 
 The solution uses worker threads and transactions. Every time a submit request is made, a new worker thread is created to run the query. The query will run in a transaction. 
 
@@ -14,16 +33,16 @@ The query runs inside a transaction to keep the update atomic.
     (In such a case, the transaction will anyway be rolled back by the ```nodejs-mysql``` module, so partial update isn't an issue here)
 - If the user does not pause, cancel or resume the transaction, and the query successfully completes, it will be committed to the database.
  
- 
- ## Testing the functionalities
- So I have kept a ```SLEEP(1000)``` query before and after the ```UPDATE ..``` query in the transaction in the ```getDataForDateRange(..)``` function, to give time to test the pause, resume and cancel features. 
+ ## Testing the API
+The server uses a `SLEEP(1000)` query before and after the `UPDATE` query in the transaction in the `getDataForDateRange()` function, to give time to test the pause, resume and cancel features. 
+
 - These features can be checked by observing that if pause/resume/cancel are pressed- even after more than 20 seconds (enough time for the entire transaction to have run), the logs would not show a successfully committed message. 
 - For resume, the transaction would continue, and the changes are successfully committed- unless it was a cancel operation, in which case it would have rolled back and not displayed successful commit message.
 
 
 ## Checking the database for changes
-After creating the containers, use ```docker exec -it mysql-db-container mysql -u root -p``` and enter the password. Then run query ```SELECT * FROM sakila.customers``` in the sakila db to check the ```active``` field to check if the changes have been reflected in the database.
- 
- 
- This was a fun challenge!
- Hope to hear back from you soon!
+After creating the containers, use `docker exec -it mysql-db-container mysql -u root -p` and enter the password __password@root123__.
+
+> The password for test purposes has been selected as __password@root123__
+
+Then run query `SELECT * FROM sakila.customers` in the sakila db to check the `active` field to check if the changes have been reflected in the database.
