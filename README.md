@@ -4,8 +4,9 @@ This repository contains teh solution for the Atlan Internshop challenge. This p
 
 ## 📖 Overview
 1. [Inroduction](#introduction)
-1. [Running It On Your Machine]()
-1. [The API]()
+1. [Running It On Your Machine](#running-it-on-your-machine)
+1. [Testing The API](#testing-the-api)
+1. [Viewing The Changes Made In The Database](#viewing-the-changes-made-in-the-database)
 
 
 ## Running It On Your Machine
@@ -40,7 +41,7 @@ The server uses a `SLEEP(1000)` query before and after the `UPDATE` query in the
 - For resume, the transaction would continue, and the changes are successfully committed- unless it was a cancel operation, in which case it would have rolled back and not displayed successful commit message.
 
 
-## Checking the database for changes
+## Viewing The Changes Made In The Database
 After creating the containers, use `docker exec -it mysql-db-container mysql -u root -p` and enter the password __password@root123__.
 
 > The password for test purposes has been selected as __password@root123__
